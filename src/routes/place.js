@@ -3,7 +3,7 @@ const router = express.Router();
 const Place = require("../models/place");
 
 // Create a place
-router.post("/places", (req, res) => {
+router.post("/", (req, res) => {
   const { destinationName, location, package, suggestedPrice, category, guide, mainImage, description } = req.body;
   const newPlace = new Place({
     destinationName,
@@ -23,14 +23,14 @@ router.post("/places", (req, res) => {
 });
 
 // Get all places
-router.get("/places", (req, res) => {
+router.get("/", (req, res) => {
   Place.find()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
 
 // Get a place by ID
-router.get("/places/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   const { id } = req.params;
   Place.findById(id)
     .then((data) => res.json(data))
@@ -38,7 +38,7 @@ router.get("/places/:id", (req, res) => {
 });
 
 // Delete a place
-router.delete("/places/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   const { id } = req.params;
   Place.findByIdAndDelete(id)
     .then(() => res.json({ message: "Place deleted successfully" }))
@@ -46,7 +46,7 @@ router.delete("/places/:id", (req, res) => {
 });
 
 // Update a place
-router.put("/places/:id", (req, res) => {
+router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { destinationName, location, package, suggestedPrice, category, guide, mainImage, description } = req.body;
   Place.findByIdAndUpdate(id, {
@@ -64,3 +64,4 @@ router.put("/places/:id", (req, res) => {
 });
 
 module.exports = router;
+
